@@ -104,7 +104,7 @@ button {
 .brand-mark {
   position: relative;
   flex: 0 0 auto;
-  width: 38px;
+  width: 54px;
   height: 24px;
 }
 
@@ -118,21 +118,21 @@ button {
 }
 
 .brand-mark::before {
-  top: 3px;
+  top: 2px;
   left: 0;
-  width: 25px;
+  width: 22px;
   height: 14px;
   border-color: var(--blue);
-  transform: rotate(-4deg);
+  transform: rotate(-3deg);
 }
 
 .brand-mark::after {
-  right: 0;
-  bottom: 3px;
-  width: 21px;
+  right: 2px;
+  bottom: 2px;
+  width: 22px;
   height: 12px;
   border-color: var(--pink);
-  transform: rotate(5deg);
+  transform: rotate(-3deg);
 }
 
 .site-nav {
