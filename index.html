@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Human-like autonomy emerges from self-play and a pinch of human data</title>
+    <meta
+      name="description"
+      content="Project website for Human-like autonomy emerges from self-play and a pinch of human data."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" aria-label="Primary">
+      <a class="brand" href="#top" aria-label="Back to top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Human-like autonomy</span>
+      </a>
+      <nav class="site-nav" aria-label="Page sections">
+        <a href="#overview">Overview</a>
+        <a href="#method">Method</a>
+        <a href="#results">Results</a>
+        <a href="#media">Media</a>
+        <a href="#abstract">Abstract</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="paper-title">
+        <div class="hero-art" aria-hidden="true">
+          <img src="assets/hero-cartoon.png" alt="">
+        </div>
+        <div class="hero-content">
+          <p class="status-line">Draft paper site · April 2026</p>
+          <h1 id="paper-title">
+            Human-like autonomy emerges from self-play and a pinch of human data
+          </h1>
+          <p class="authors">
+            Daphne Cornelisse · Julian Hunt · Zixu Zhang · Kevin Joseph ·
+            Jaime Fernandez Fisac · Eugene Vinitsky
+          </p>
+          <p class="affiliations">
+            NYU Tandon School of Engineering · NYU Courant · Princeton University
+          </p>
+          <p class="hero-copy">
+            We train driving agents mostly through self-play simulation, then use
+            30 minutes of human demonstrations as a behavioral anchor. The result
+            is a cheaper recipe for zero-shot coordination with real human
+            driving trajectories.
+          </p>
+          <div class="hero-actions" aria-label="Paper links">
+            <a class="button primary" href="NeurIPS_2026__Scaling_laws_for_human_data%20%281%29.pdf">
+              Paper PDF
+            </a>
+            <a class="button" href="#citation">BibTeX</a>
+            <span class="button muted" aria-disabled="true">Code soon</span>
+            <span class="button muted" aria-disabled="true">Videos soon</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="metrics-strip" aria-label="Headline results">
+        <div class="metric">
+          <strong>125,000x</strong>
+          <span>less human data than the IL baseline</span>
+        </div>
+        <div class="metric">
+          <strong>30x</strong>
+          <span>shorter cumulative training time</span>
+        </div>
+        <div class="metric">
+          <strong>61x</strong>
+          <span>lower self-play collision rate</span>
+        </div>
+        <div class="metric">
+          <strong>160x</strong>
+          <span>lower human-replay at-fault collision rate</span>
+        </div>
+      </section>
+
+      <section class="section intro-section" id="overview">
+        <div class="section-heading">
+          <p class="eyebrow">TL;DR</p>
+          <h2>Human data acts as a small regularizer, not the main fuel.</h2>
+        </div>
+        <div class="lede">
+          <p>
+            Pure self-play can discover effective driving policies, but those
+            policies may be behaviorally alien around humans. The paper studies a
+            simple alternative: train a behavioral cloning anchor on a small
+            slice of human demonstrations, then regularize PPO self-play toward
+            that anchor.
+          </p>
+          <p>
+            Across held-out Waymo Open Motion scenarios, a small anchor pulls the
+            policy toward human-compatible behavior while preserving the scale
+            and robustness advantages of synthetic self-play experience.
+          </p>
+        </div>
+      </section>
+
+      <section class="section method-section" id="method">
+        <div class="section-heading">
+          <p class="eyebrow">Method</p>
+          <h2>A pinch of human behavior inside an ocean of self-play.</h2>
+        </div>
+        <div class="method-layout">
+          <figure class="figure-panel">
+            <img
+              src="assets/hero-cartoon.png"
+              alt="Cartoon showing a small amount of human data being added to experience generated through self-play reinforcement learning."
+            >
+            <figcaption>
+              Regularized self-play treats human demonstrations as an anchor that
+              steers the solution away from effective-but-alien equilibria.
+            </figcaption>
+          </figure>
+          <div class="method-notes">
+            <article>
+              <span>1</span>
+              <h3>Learn a human anchor</h3>
+              <p>
+                Train a compact behavioral cloning policy from selected human
+                driving demonstrations.
+              </p>
+            </article>
+            <article>
+              <span>2</span>
+              <h3>Train through self-play</h3>
+              <p>
+                Use PPO in simulation so the agent sees billions of synthetic
+                transitions and an automatically evolving curriculum.
+              </p>
+            </article>
+            <article>
+              <span>3</span>
+              <h3>Regularize toward compatibility</h3>
+              <p>
+                Add a KL penalty from the anchor to the policy, keeping the agent
+                effective while making its behavior easier for human drivers to
+                coordinate with.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section evaluation-section">
+        <div class="section-heading">
+          <p class="eyebrow">Evaluation</p>
+          <h2>Self-play success is not enough; coordination is measured against human replays.</h2>
+        </div>
+        <figure class="figure-panel scroll-figure">
+          <img
+            src="assets/figure-eval-settings.png"
+            alt="Diagram comparing self-play evaluation, human-replay collision events, and human-replay at-fault collision events."
+          >
+          <figcaption>
+            The evaluation separates raw collisions from at-fault collisions,
+            because replayed human agents can hit the controlled vehicle from
+            behind.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="section results-section" id="results">
+        <div class="section-heading">
+          <p class="eyebrow">Results</p>
+          <h2>Regularization closes the zero-shot coordination gap with surprisingly little human data.</h2>
+        </div>
+
+        <div class="result-grid">
+          <figure class="figure-panel scroll-figure span-full">
+            <img
+              src="assets/figure-data-requirements.png"
+              alt="Plots showing collision rates and zero-shot coordination gap across self-play training maps and different human anchor sizes."
+            >
+            <figcaption>
+              Scaling with scenario diversity and anchor size. More maps improve
+              robustness, while the human anchor narrows the self-play to
+              human-replay transfer gap.
+            </figcaption>
+          </figure>
+
+          <figure class="figure-panel scroll-figure">
+            <img
+              src="assets/figure-eval-anchor.png"
+              alt="Chart showing open-loop and closed-loop behavior for anchor behavioral cloning policies."
+            >
+            <figcaption>
+              Anchor quality improves with more demonstration data, but the
+              self-play policy does not require a large imitation dataset.
+            </figcaption>
+          </figure>
+
+          <figure class="figure-panel scroll-figure">
+            <img
+              src="assets/figure-compatibility-tradeoff.png"
+              alt="Chart showing the compatibility tradeoff for different training settings."
+            >
+            <figcaption>
+              The regularization strength exposes a practical tradeoff between
+              task performance and human-compatible behavior.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section media-section" id="media">
+        <div class="section-heading">
+          <p class="eyebrow">Media</p>
+          <h2>Rollouts, GIFs, and videos can drop in here when the assets are ready.</h2>
+        </div>
+        <div class="media-grid">
+          <article class="media-slot">
+            <div class="media-frame">
+              <div class="road-scene" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <p>Self-play rollout video</p>
+            </div>
+            <h3>Self-play evaluation</h3>
+            <p>Placeholder for clips of the policy coordinating with copies of itself.</p>
+          </article>
+          <article class="media-slot">
+            <div class="media-frame">
+              <div class="road-scene replay" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <p>Human-replay GIF</p>
+            </div>
+            <h3>Human-replay evaluation</h3>
+            <p>Placeholder for side-by-side examples of human-compatible behavior.</p>
+          </article>
+          <article class="media-slot">
+            <div class="media-frame">
+              <div class="road-scene contrast" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <p>Baseline comparison</p>
+            </div>
+            <h3>Pure self-play vs. regularized self-play</h3>
+            <p>Placeholder for clips showing the failure mode and the anchored policy.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section abstract-section" id="abstract">
+        <div class="section-heading">
+          <p class="eyebrow">Abstract</p>
+          <h2>Cheap simulation, small human anchor, human-compatible behavior.</h2>
+        </div>
+        <div class="abstract-copy">
+          <p>
+            Self-play reinforcement learning has recently taken the wheel in
+            autonomous driving. The approach substitutes expensive, large-scale
+            human demonstration data with cheap, large-scale simulation. While
+            cost-effective, agents trained through self-play often behave
+            unpredictably around unseen policies and fail to coordinate with
+            human drivers.
+          </p>
+          <p>
+            We instead learn driving policies by training on over six years of
+            self-play simulation and 30 minutes of human demonstrations. Our
+            agents achieve zero-shot coordination with real human driving
+            trajectories using 125,000x less human data than imitation learning
+            baselines, at 1/30 the number of GPU hours.
+          </p>
+        </div>
+      </section>
+
+      <section class="section citation-section" id="citation">
+        <div class="section-heading">
+          <p class="eyebrow">Citation</p>
+          <h2>BibTeX</h2>
+        </div>
+        <div class="citation-box">
+          <pre><code id="bibtex">@misc{cornelisse2026humanlike,
+  title  = {Human-like autonomy emerges from self-play and a pinch of human data},
+  author = {Cornelisse, Daphne and Hunt, Julian and Zhang, Zixu and Joseph, Kevin and Fernandez Fisac, Jaime and Vinitsky, Eugene},
+  year   = {2026},
+  note   = {Manuscript}
+}</code></pre>
+          <button class="copy-button" type="button" data-copy="#bibtex">Copy BibTeX</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        Draft website for a work in progress. Replace placeholders with final
+        links, rollouts, and publication metadata before release.
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
