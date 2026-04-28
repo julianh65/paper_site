@@ -238,6 +238,22 @@ button {
   font-weight: 780;
 }
 
+.authors sup,
+.affiliations sup {
+  position: relative;
+  top: -0.35em;
+  margin-left: 1px;
+  color: var(--blue-deep);
+  font-size: 0.68em;
+  font-weight: 850;
+  line-height: 0;
+}
+
+.affiliations sup {
+  margin-left: 0;
+  margin-right: 2px;
+}
+
 .affiliations {
   margin: 7px 0 0;
   color: var(--muted);
