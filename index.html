@@ -103,6 +103,31 @@
             robustness from large-scale simulated self-play.
           </p>
         </div>
+        <div class="detail-grid" aria-label="Approach details">
+          <article>
+            <h3>Regularization target</h3>
+            <p>
+              The behavioral prior is fit once from demonstrations and used
+              during PPO updates; it complements rather than replaces self-play
+              experience.
+            </p>
+          </article>
+          <article>
+            <h3>Replay protocol</h3>
+            <p>
+              Held-out scenarios replay logged human agents while the learned
+              policy controls the vehicle, exposing coordination failures that
+              self-play metrics can miss.
+            </p>
+          </article>
+          <article>
+            <h3>Scaling axes</h3>
+            <p>
+              The experiments vary map diversity, demonstration-prior size, and
+              regularization strength to separate robustness from compatibility.
+            </p>
+          </article>
+        </div>
       </section>
 
       <section class="section method-section" id="method">
