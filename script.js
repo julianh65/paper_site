@@ -42,3 +42,37 @@ document.querySelectorAll("[data-copy]").forEach((button) => {
     }, 1400);
   });
 });
+
+document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+  const slides = Array.from(carousel.querySelectorAll("[data-slide]"));
+  const previous = carousel.querySelector("[data-carousel-prev]");
+  const next = carousel.querySelector("[data-carousel-next]");
+  const count = carousel.querySelector("[data-carousel-count]");
+
+  if (slides.length < 2 || !previous || !next) return;
+
+  let activeIndex = slides.findIndex((slide) => !slide.hidden);
+  if (activeIndex < 0) activeIndex = 0;
+
+  const setSlide = (index) => {
+    activeIndex = (index + slides.length) % slides.length;
+
+    slides.forEach((slide, slideIndex) => {
+      const isActive = slideIndex === activeIndex;
+      slide.hidden = !isActive;
+      slide.classList.toggle("is-active", isActive);
+
+      if (slide instanceof HTMLVideoElement && !isActive) {
+        slide.pause();
+      }
+    });
+
+    if (count) {
+      count.textContent = `${activeIndex + 1} / ${slides.length}`;
+    }
+  };
+
+  previous.addEventListener("click", () => setSlide(activeIndex - 1));
+  next.addEventListener("click", () => setSlide(activeIndex + 1));
+  setSlide(activeIndex);
+});

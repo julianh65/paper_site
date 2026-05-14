@@ -51,9 +51,9 @@
             <sup>5</sup>Valeo
           </p>
           <p class="hero-copy">
-            We examine whether a behavioral-cloning prior learned from a small
-            set of human demonstrations can regularize large-scale self-play RL
-            toward policies that coordinate with logged human driving behavior.
+            We examine whether regularizing self-play RL toward a behavioral
+            cloning anchor, trained from a small amount of human demonstrations,
+            improves coordination with logged human driving trajectories.
           </p>
           <div class="hero-actions" aria-label="Paper links">
             <a class="button primary" href="Human_like_autonomy_CORL.pdf">
@@ -81,20 +81,20 @@
         </div>
         <div class="metric">
           <strong>30 min</strong>
-          <span>of demonstrations used to fit the behavioral prior</span>
+          <span>of demonstrations used to fit the RL anchor</span>
         </div>
       </section>
 
       <section class="section intro-section" id="overview">
         <div class="section-heading">
           <p class="eyebrow">Summary</p>
-          <h2>A small demonstration prior improves coordination under human replay.</h2>
+          <h2>A small behavioral cloning anchor improves coordination under human replay.</h2>
         </div>
         <div class="lede">
           <p>
             Self-play can produce high-performing closed-loop driving policies,
             but task success in self-play does not imply compatibility with human
-            drivers. We regularize PPO self-play with a behavioral-cloning prior
+            drivers. We regularize PPO self-play toward a behavioral cloning anchor
             trained on a small subset of human demonstrations.
           </p>
           <p>
@@ -105,9 +105,9 @@
         </div>
         <div class="detail-grid" aria-label="Approach details">
           <article>
-            <h3>Regularization target</h3>
+            <h3>RL anchor</h3>
             <p>
-              The behavioral prior is fit once from demonstrations and used
+              The anchor is fit once from demonstrations and used
               during PPO updates; it complements rather than replaces self-play
               experience.
             </p>
@@ -121,9 +121,9 @@
             </p>
           </article>
           <article>
-            <h3>Scaling axes</h3>
+            <h3>Scaling study</h3>
             <p>
-              The experiments vary map diversity, demonstration-prior size, and
+              The experiments vary map diversity, anchor dataset size, and
               regularization strength to separate robustness from compatibility.
             </p>
           </article>
@@ -133,7 +133,7 @@
       <section class="section method-section" id="method">
         <div class="section-heading">
           <p class="eyebrow">Method</p>
-          <h2>A behavioral-cloning prior regularizes large-scale self-play.</h2>
+          <h2>Self-play RL is regularized toward a behavioral cloning anchor.</h2>
         </div>
         <div class="method-layout">
           <figure class="figure-panel">
@@ -142,16 +142,16 @@
               alt="Cartoon showing a small amount of human data being added to experience generated through self-play reinforcement learning."
             >
             <figcaption>
-              The demonstration prior biases self-play away from effective but
+              The behavioral cloning anchor biases self-play away from effective but
               human-incompatible equilibria.
             </figcaption>
           </figure>
           <div class="method-notes">
             <article>
               <span>1</span>
-              <h3>Learn a behavioral prior</h3>
+              <h3>Fit the anchor</h3>
               <p>
-                Fit a compact behavioral-cloning policy to a selected subset of
+                Fit a compact behavioral cloning policy to a selected subset of
                 human driving demonstrations.
               </p>
             </article>
@@ -167,7 +167,7 @@
               <span>3</span>
               <h3>Constrain policy updates</h3>
               <p>
-                Penalize divergence from the prior, allowing task-directed RL
+                Penalize divergence from the anchor, allowing task-directed RL
                 while biasing behavior toward human driving conventions.
               </p>
             </article>
@@ -206,8 +206,8 @@
               alt="Plots showing collision rates and human-coordination gap across self-play training maps and different human anchor sizes."
             >
             <figcaption>
-              Scaling with scenario diversity and demonstration-prior size.
-              Increasing map diversity improves robustness, while the prior
+              Scaling with scenario diversity and anchor dataset size.
+              Increasing map diversity improves robustness, while the anchor
               reduces the self-play to human-replay transfer gap.
             </figcaption>
           </figure>
@@ -218,7 +218,7 @@
               alt="Chart showing open-loop and closed-loop behavior for anchor behavioral cloning policies."
             >
             <figcaption>
-              The behavioral-cloning prior improves with additional
+              The behavioral cloning anchor improves with additional
               demonstration data, but regularized self-play does not require a
               large imitation dataset.
             </figcaption>
@@ -244,19 +244,34 @@
         </div>
         <div class="media-grid">
           <article class="media-slot">
-            <div class="media-frame demo-frame">
+            <div class="media-frame demo-frame" data-carousel>
               <img
+                class="is-active"
+                data-slide
                 src="reg_self_play_pufferdrive_demos/reg_good/wait_for_pedestrian.gif"
                 alt="Regularized policy slowing and waiting for a pedestrian."
               >
+              <img
+                data-slide
+                hidden
+                src="reg_self_play_pufferdrive_demos/reg_good/cb75c7b3-b20e-50.gif"
+                alt="Additional regularized rollout in human-replay evaluation."
+              >
               <p>Regularized · human-replay</p>
+              <div class="carousel-controls" aria-label="Waiting for a pedestrian clips">
+                <button class="carousel-button" type="button" data-carousel-prev aria-label="Previous clip">‹</button>
+                <span data-carousel-count>1 / 2</span>
+                <button class="carousel-button" type="button" data-carousel-next aria-label="Next clip">›</button>
+              </div>
             </div>
             <h3>Waiting for a pedestrian</h3>
             <p>The regularized policy completes the scenario while yielding an interaction that is more readily anticipated.</p>
           </article>
           <article class="media-slot">
-            <div class="media-frame demo-frame">
+            <div class="media-frame demo-frame" data-carousel>
               <video
+                class="is-active"
+                data-slide
                 src="reg_self_play_pufferdrive_demos/reg_good/75d8e4eadceb6885.mp4"
                 controls
                 muted
@@ -264,47 +279,107 @@
                 playsinline
                 preload="metadata"
               ></video>
+              <video
+                data-slide
+                hidden
+                src="reg_self_play_pufferdrive_demos/reg_good/a35e0439b5988353.mp4"
+                controls
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              ></video>
               <p>Regularized · rollout</p>
+              <div class="carousel-controls" aria-label="Coordinated interaction clips">
+                <button class="carousel-button" type="button" data-carousel-prev aria-label="Previous clip">‹</button>
+                <span data-carousel-count>1 / 2</span>
+                <button class="carousel-button" type="button" data-carousel-next aria-label="Next clip">›</button>
+              </div>
             </div>
             <h3>Coordinated interaction</h3>
-            <p>Regularized self-play remains task-effective while staying close to the behavior induced by the prior.</p>
+            <p>Regularized self-play remains task-effective while staying close to the behavior induced by the anchor.</p>
           </article>
           <article class="media-slot">
-            <div class="media-frame demo-frame">
+            <div class="media-frame demo-frame" data-carousel>
               <img
+                class="is-active"
+                data-slide
                 src="reg_self_play_pufferdrive_demos/unreg_not_fail_but_alien/threading_the_needle_fast.gif"
                 alt="Unregularized self-play policy moving quickly through traffic."
               >
+              <img
+                data-slide
+                hidden
+                src="reg_self_play_pufferdrive_demos/unreg_not_fail_but_alien/threading_the_needle_slow.gif"
+                alt="Slower view of an unregularized self-play policy moving through traffic."
+              >
               <p>Unregularized · atypical</p>
+              <div class="carousel-controls" aria-label="Atypical successful rollout clips">
+                <button class="carousel-button" type="button" data-carousel-prev aria-label="Previous clip">‹</button>
+                <span data-carousel-count>1 / 2</span>
+                <button class="carousel-button" type="button" data-carousel-next aria-label="Next clip">›</button>
+              </div>
             </div>
             <h3>Atypical successful rollout</h3>
             <p>An unregularized policy can complete the scenario using maneuvers that are less consistent with logged human behavior.</p>
           </article>
           <article class="media-slot">
-            <div class="media-frame demo-frame">
+            <div class="media-frame demo-frame" data-carousel>
               <img
+                class="is-active"
+                data-slide
                 src="reg_self_play_pufferdrive_demos/unreg_failures/dc85ad18167fcb53.gif"
                 alt="Unregularized policy failure example."
               >
+              <video
+                data-slide
+                hidden
+                src="reg_self_play_pufferdrive_demos/unreg_failures/261630aacad8e4f8.mp4"
+                controls
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              ></video>
               <p>Unregularized · transfer</p>
+              <div class="carousel-controls" aria-label="Transfer failure clips">
+                <button class="carousel-button" type="button" data-carousel-prev aria-label="Previous clip">‹</button>
+                <span data-carousel-count>1 / 2</span>
+                <button class="carousel-button" type="button" data-carousel-next aria-label="Next clip">›</button>
+              </div>
             </div>
             <h3>Transfer failure under replay</h3>
-            <p>Without the demonstration prior, self-play may converge to behaviors that transfer poorly to human-replay evaluation.</p>
+            <p>Without the RL anchor, self-play may converge to behaviors that transfer poorly to human-replay evaluation.</p>
           </article>
           <article class="media-slot">
-            <div class="media-frame demo-frame">
+            <div class="media-frame demo-frame" data-carousel>
               <img
+                class="is-active"
+                data-slide
                 src="reg_self_play_pufferdrive_demos/reg_failures/714d0c80-bedc-51.gif"
                 alt="Regularized policy failure example."
               >
+              <img
+                data-slide
+                hidden
+                src="reg_self_play_pufferdrive_demos/reg_failures/a0774ac1-bb6c-58.gif"
+                alt="Additional regularized policy failure example."
+              >
               <p>Regularized · failure</p>
+              <div class="carousel-controls" aria-label="Remaining failure clips">
+                <button class="carousel-button" type="button" data-carousel-prev aria-label="Previous clip">‹</button>
+                <span data-carousel-count>1 / 2</span>
+                <button class="carousel-button" type="button" data-carousel-next aria-label="Next clip">›</button>
+              </div>
             </div>
             <h3>Remaining failure case</h3>
             <p>Human-replay remains an imperfect proxy for deployment, and some interactions remain unresolved.</p>
           </article>
           <article class="media-slot">
-            <div class="media-frame demo-frame">
+            <div class="media-frame demo-frame" data-carousel>
               <video
+                class="is-active"
+                data-slide
                 src="reg_self_play_pufferdrive_demos/inferred_expert_sdc/14d9a71cba4b4b26.mp4"
                 controls
                 muted
@@ -312,10 +387,25 @@
                 playsinline
                 preload="metadata"
               ></video>
+              <video
+                data-slide
+                hidden
+                src="reg_self_play_pufferdrive_demos/inferred_expert_sdc/7e4928a4d8570ae5.mp4"
+                controls
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              ></video>
               <p>Demonstration replay</p>
+              <div class="carousel-controls" aria-label="Demonstration replay clips">
+                <button class="carousel-button" type="button" data-carousel-prev aria-label="Previous clip">‹</button>
+                <span data-carousel-count>1 / 2</span>
+                <button class="carousel-button" type="button" data-carousel-next aria-label="Next clip">›</button>
+              </div>
             </div>
             <h3>Demonstration data</h3>
-            <p>Expert SDC replays illustrate the demonstrations used to fit the behavioral prior.</p>
+            <p>Expert SDC replays illustrate the demonstrations used to fit the behavioral cloning anchor.</p>
           </article>
         </div>
       </section>
@@ -323,7 +413,7 @@
       <section class="section abstract-section" id="abstract">
         <div class="section-heading">
           <p class="eyebrow">Abstract</p>
-          <h2>Self-play policies are regularized by a lightweight demonstration prior.</h2>
+          <h2>Self-play policies are regularized toward a lightweight behavioral cloning anchor.</h2>
         </div>
         <div class="abstract-copy">
           <p>
