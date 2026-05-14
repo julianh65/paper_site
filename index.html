@@ -33,33 +33,35 @@
           <img src="assets/hero-cartoon.png" alt="">
         </div>
         <div class="hero-content">
-          <p class="status-line">Draft paper site · April 2026</p>
+          <p class="status-line">CoRL version · May 2026</p>
           <h1 id="paper-title">
             Human-like autonomy emerges from self-play and a pinch of human data
           </h1>
           <p class="authors">
             Daphne Cornelisse<sup>1</sup> · Julian Hunt<sup>2</sup> ·
-            Zixu Zhang<sup>3</sup> · Kevin Joseph<sup>2</sup> ·
-            Jaime Fernández Fisac<sup>3</sup> · Eugene Vinitsky<sup>1</sup>
+            Zixu Zhang<sup>3</sup> · Waël Doulazmi<sup>4,5</sup> ·
+            Kevin Joseph<sup>2</sup> · Jaime Fernández Fisac<sup>3</sup> ·
+            Eugene Vinitsky<sup>1</sup>
           </p>
           <p class="affiliations">
             <sup>1</sup>NYU Tandon School of Engineering ·
             <sup>2</sup>NYU Courant ·
-            <sup>3</sup>Princeton University
+            <sup>3</sup>Princeton University ·
+            <sup>4</sup>Centre for Robotics, Mines Paris ·
+            <sup>5</sup>Valeo
           </p>
           <p class="hero-copy">
-            We train driving agents mostly through self-play simulation, then use
-            30 minutes of human demonstrations as a behavioral anchor. The result
-            is a cheaper recipe for zero-shot coordination with real human
-            driving trajectories.
+            We train driving agents on over 30 years of self-play simulation,
+            then use a small human demonstration anchor to steer the policy
+            toward conventions that fit the road.
           </p>
           <div class="hero-actions" aria-label="Paper links">
-            <a class="button primary" href="NeurIPS_2026__Scaling_laws_for_human_data%20%281%29.pdf">
+            <a class="button primary" href="Human_like_autonomy_CORL.pdf">
               Paper PDF
             </a>
             <a class="button" href="#citation">BibTeX</a>
             <span class="button muted" aria-disabled="true">Code soon</span>
-            <span class="button muted" aria-disabled="true">Videos soon</span>
+            <a class="button" href="#media">Demos</a>
           </div>
         </div>
       </section>
@@ -70,16 +72,16 @@
           <span>less human data than the IL baseline</span>
         </div>
         <div class="metric">
-          <strong>30x</strong>
-          <span>shorter cumulative training time</span>
+          <strong>25x</strong>
+          <span>fewer GPU hours than the IL baseline</span>
         </div>
         <div class="metric">
-          <strong>61x</strong>
-          <span>lower self-play collision rate</span>
+          <strong>30+ yrs</strong>
+          <span>of synthetic self-play experience</span>
         </div>
         <div class="metric">
-          <strong>160x</strong>
-          <span>lower human-replay at-fault collision rate</span>
+          <strong>30 min</strong>
+          <span>of human demonstrations is enough to anchor behavior</span>
         </div>
       </section>
 
@@ -171,14 +173,14 @@
       <section class="section results-section" id="results">
         <div class="section-heading">
           <p class="eyebrow">Results</p>
-          <h2>Regularization closes the zero-shot coordination gap with surprisingly little human data.</h2>
+          <h2>Regularization narrows the human-coordination gap with surprisingly little human data.</h2>
         </div>
 
         <div class="result-grid">
           <figure class="figure-panel scroll-figure span-full">
             <img
               src="assets/figure-data-requirements.png"
-              alt="Plots showing collision rates and zero-shot coordination gap across self-play training maps and different human anchor sizes."
+              alt="Plots showing collision rates and human-coordination gap across self-play training maps and different human anchor sizes."
             >
             <figcaption>
               Scaling with scenario diversity and anchor size. More maps improve
@@ -214,38 +216,82 @@
       <section class="section media-section" id="media">
         <div class="section-heading">
           <p class="eyebrow">Media</p>
-          <h2>Rollouts, GIFs, and videos can drop in here when the assets are ready.</h2>
+          <h2>Rollouts show the behavioral difference that metrics compress.</h2>
         </div>
         <div class="media-grid">
           <article class="media-slot">
-            <div class="media-frame">
-              <div class="road-scene" aria-hidden="true">
-                <span></span><span></span><span></span>
-              </div>
-              <p>Self-play rollout video</p>
+            <div class="media-frame demo-frame">
+              <img
+                src="reg_self_play_pufferdrive_demos/reg_good/wait_for_pedestrian.gif"
+                alt="Regularized policy slowing and waiting for a pedestrian."
+              >
+              <p>Regularized · human-replay</p>
             </div>
-            <h3>Self-play evaluation</h3>
-            <p>Placeholder for clips of the policy coordinating with copies of itself.</p>
+            <h3>Waiting for a pedestrian</h3>
+            <p>The anchored policy preserves the task objective while choosing a legible, human-compatible interaction.</p>
           </article>
           <article class="media-slot">
-            <div class="media-frame">
-              <div class="road-scene replay" aria-hidden="true">
-                <span></span><span></span><span></span>
-              </div>
-              <p>Human-replay GIF</p>
+            <div class="media-frame demo-frame">
+              <video
+                src="reg_self_play_pufferdrive_demos/reg_good/75d8e4eadceb6885.mp4"
+                controls
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              ></video>
+              <p>Regularized · success</p>
             </div>
-            <h3>Human-replay evaluation</h3>
-            <p>Placeholder for side-by-side examples of human-compatible behavior.</p>
+            <h3>Coordinated rollout</h3>
+            <p>Regularized self-play remains effective while staying closer to the behavior induced by the human anchor.</p>
           </article>
           <article class="media-slot">
-            <div class="media-frame">
-              <div class="road-scene contrast" aria-hidden="true">
-                <span></span><span></span><span></span>
-              </div>
-              <p>Baseline comparison</p>
+            <div class="media-frame demo-frame">
+              <img
+                src="reg_self_play_pufferdrive_demos/unreg_not_fail_but_alien/threading_the_needle_fast.gif"
+                alt="Unregularized self-play policy threading quickly through traffic."
+              >
+              <p>Unregularized · alien</p>
             </div>
-            <h3>Pure self-play vs. regularized self-play</h3>
-            <p>Placeholder for clips showing the failure mode and the anchored policy.</p>
+            <h3>Effective but alien</h3>
+            <p>Pure self-play can complete the task with strategies that are internally consistent but hard for humans to predict.</p>
+          </article>
+          <article class="media-slot">
+            <div class="media-frame demo-frame">
+              <img
+                src="reg_self_play_pufferdrive_demos/unreg_failures/dc85ad18167fcb53.gif"
+                alt="Unregularized policy failure example."
+              >
+              <p>Unregularized · failure</p>
+            </div>
+            <h3>Baseline failure mode</h3>
+            <p>Without a human anchor, self-play can drift into behaviors that transfer poorly against logged human drivers.</p>
+          </article>
+          <article class="media-slot">
+            <div class="media-frame demo-frame">
+              <img
+                src="reg_self_play_pufferdrive_demos/reg_failures/714d0c80-bedc-51.gif"
+                alt="Regularized policy failure example."
+              >
+              <p>Regularized · failure</p>
+            </div>
+            <h3>Remaining failure case</h3>
+            <p>The CoRL draft still treats human-replay as a proxy; some interactions remain hard even for regularized policies.</p>
+          </article>
+          <article class="media-slot">
+            <div class="media-frame demo-frame">
+              <video
+                src="reg_self_play_pufferdrive_demos/inferred_expert_sdc/14d9a71cba4b4b26.mp4"
+                controls
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              ></video>
+              <p>Inferred expert SDC</p>
+            </div>
+            <h3>Human anchor data</h3>
+            <p>Expert SDC replays illustrate the compact demonstration source used to regularize self-play.</p>
           </article>
         </div>
       </section>
@@ -258,18 +304,18 @@
         <div class="abstract-copy">
           <p>
             Self-play reinforcement learning has recently taken the wheel in
-            autonomous driving. The approach substitutes expensive, large-scale
-            human demonstration data with cheap, large-scale simulation. While
+            autonomous driving. This approach uses cheap, large-scale simulation
+            to substitute expensive, large-scale human demonstration data. While
             cost-effective, agents trained through self-play often behave
             unpredictably around unseen policies and fail to coordinate with
-            human drivers.
+            human drivers due to incompatible driving styles.
           </p>
           <p>
-            We instead learn driving policies by training on over six years of
-            self-play simulation and 30 minutes of human demonstrations. Our
-            agents achieve zero-shot coordination with real human driving
-            trajectories using 125,000x less human data than imitation learning
-            baselines, at 1/30 the number of GPU hours.
+            We learn driving policies by training on over 30 years of self-play
+            simulation against a minimal reward function and just 30 minutes of
+            human demonstrations. Our agents achieve near-zero-shot coordination
+            with real human driving trajectories using 125,000x less human data
+            than imitation learning baselines, at 1/25 the number of GPU hours.
           </p>
         </div>
       </section>
@@ -282,10 +328,10 @@
         <div class="citation-box">
           <pre><code id="bibtex">@unpublished{cornelisse2026humanlikeautonomy,
   title  = {Human-like autonomy emerges from self-play and a pinch of human data},
-  author = {Cornelisse, Daphne and Hunt, Julian and Zhang, Zixu and Joseph, Kevin and {Fern{\'a}ndez Fisac}, Jaime and Vinitsky, Eugene},
+  author = {Cornelisse, Daphne and Hunt, Julian and Zhang, Zixu and Doulazmi, Wa{\"e}l and Joseph, Kevin and {Fern{\'a}ndez Fisac}, Jaime and Vinitsky, Eugene},
   year   = {2026},
-  month  = apr,
-  note   = {Manuscript in preparation}
+  month  = may,
+  note   = {CoRL submission}
 }</code></pre>
           <button class="copy-button" type="button" data-copy="#bibtex">Copy BibTeX</button>
         </div>
@@ -294,8 +340,8 @@
 
     <footer class="site-footer">
       <p>
-        Draft website for a work in progress. Replace placeholders with final
-        links, rollouts, and publication metadata before release.
+        Draft website for the CoRL version. Replace the citation with the final
+        proceedings entry after acceptance.
       </p>
     </footer>
 

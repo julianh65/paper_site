@@ -1,6 +1,6 @@
 # Human-like autonomy paper site
 
-Static project website for:
+Static project website for the CoRL version of:
 
 **Human-like autonomy emerges from self-play and a pinch of human data**
 
@@ -23,3 +23,6 @@ This is a plain static site. In Vercel, import the GitHub repo and use:
 - Output directory: `.`
 
 Vercel will serve `index.html` from the repository root.
+
+The `reg_self_play_pufferdrive_demos/` directory contains the rollout media
+referenced by the site.
