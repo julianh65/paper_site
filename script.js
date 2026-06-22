@@ -43,6 +43,50 @@ document.querySelectorAll("[data-copy]").forEach((button) => {
   });
 });
 
+const loadLazyVideo = (video) => {
+  if (video.dataset.loaded === "true") return;
+
+  video.querySelectorAll("source[data-src]").forEach((source) => {
+    source.src = source.dataset.src;
+    source.removeAttribute("data-src");
+  });
+
+  video.dataset.loaded = "true";
+  video.load();
+
+  const playback = video.play();
+  if (playback) {
+    playback.catch(() => {});
+  }
+};
+
+const loadLazyVideos = (root = document) => {
+  root.querySelectorAll("video[data-lazy-video]").forEach(loadLazyVideo);
+};
+
+if ("IntersectionObserver" in window) {
+  const lazyVideoObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        loadLazyVideo(entry.target);
+        lazyVideoObserver.unobserve(entry.target);
+      });
+    },
+    {
+      rootMargin: "600px 0px",
+      threshold: 0.01,
+    },
+  );
+
+  document.querySelectorAll("video[data-lazy-video]").forEach((video) => {
+    lazyVideoObserver.observe(video);
+  });
+} else {
+  loadLazyVideos();
+}
+
 document.querySelectorAll("[data-collapse-toggle]").forEach((button) => {
   const targetId = button.getAttribute("aria-controls");
   const target = targetId ? document.getElementById(targetId) : null;
@@ -55,6 +99,12 @@ document.querySelectorAll("[data-collapse-toggle]").forEach((button) => {
   const setExpanded = (isExpanded) => {
     button.setAttribute("aria-expanded", String(isExpanded));
     target.hidden = !isExpanded;
+
+    if (isExpanded) {
+      loadLazyVideos(target);
+    } else {
+      target.querySelectorAll("video").forEach((video) => video.pause());
+    }
 
     if (label) {
       label.textContent = isExpanded ? expandedLabel : collapsedLabel;
