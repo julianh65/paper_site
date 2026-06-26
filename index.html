@@ -497,10 +497,13 @@
           <h2>Human compatibility is measured by safe task completion under replay.</h2>
         </div>
         <figure class="figure-panel scroll-figure">
-          <img
-            src="assets/figure-eval-settings.png"
-            alt="Diagram comparing self-play evaluation, human-replay collision events, and human-replay at-fault collision events."
-          >
+          <picture>
+            <source media="(max-width: 640px)" srcset="assets/figure-eval-settings-mobile.png">
+            <img
+              src="assets/figure-eval-settings.png"
+              alt="Diagram comparing self-play evaluation, human-replay collision events, and human-replay at-fault collision events."
+            >
+          </picture>
           <figcaption>
             Safe task completion combines task completion with at-fault
             collisions, distinguishing failures caused by the learned policy from
@@ -517,10 +520,13 @@
 
         <div class="result-grid">
           <figure class="figure-panel scroll-figure span-full">
-            <img
-              src="assets/figure-safe-coordination.png"
-              alt="Plots comparing safe task completion, total training transitions, and trajectory behavior for spiced self-play, self-play, and imitation-learning baselines."
-            >
+            <picture>
+              <source media="(max-width: 640px)" srcset="assets/figure-safe-coordination-mobile.png">
+              <img
+                src="assets/figure-safe-coordination.png"
+                alt="Plots comparing safe task completion, total training transitions, and trajectory behavior for spiced self-play, self-play, and imitation-learning baselines."
+              >
+            </picture>
             <figcaption>
               Headline result from the current manuscript. Spiced self-play
               reaches 0.994 safe task completion with 20B self-play transitions
@@ -531,10 +537,13 @@
           </figure>
 
           <figure class="figure-panel scroll-figure span-full">
-            <img
-              src="assets/figure-collision-severity.png"
-              alt="Charts comparing collision severity distributions for unregularized and spiced self-play policies."
-            >
+            <picture>
+              <source media="(max-width: 640px)" srcset="assets/figure-collision-severity-mobile.png">
+              <img
+                src="assets/figure-collision-severity.png"
+                alt="Charts comparing collision severity distributions for unregularized and spiced self-play policies."
+              >
+            </picture>
             <figcaption>
               Spiced policies also change the character of failures: collisions
               are less severe on average and concentrate at lower per-event speed

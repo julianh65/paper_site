@@ -433,6 +433,10 @@ button {
   overflow: hidden;
 }
 
+.figure-panel picture {
+  display: block;
+}
+
 .figure-panel img {
   width: 100%;
   background: white;
@@ -1081,6 +1085,17 @@ button {
 }
 
 @media (max-width: 640px) {
+  .scroll-figure {
+    overflow-x: hidden;
+  }
+
+  .scroll-figure img {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
   :root {
     --gutter: 18px;
     --page-inset: 36px;
@@ -1231,9 +1246,6 @@ button {
     font-size: 0.92rem;
   }
 
-  .scroll-figure img {
-    width: min(620px, max(540px, 150vw));
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
