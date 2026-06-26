@@ -1066,10 +1066,12 @@ button {
 
   .scroll-figure {
     overflow-x: auto;
+    scrollbar-color: rgba(8, 119, 189, 0.36) transparent;
+    scrollbar-width: thin;
   }
 
   .scroll-figure img {
-    width: 820px;
+    width: min(760px, max(640px, 118vw));
     max-width: none;
   }
 
@@ -1091,12 +1093,12 @@ button {
   }
 
   .site-nav {
-    gap: 2px;
+    gap: 1px;
   }
 
   .site-nav a {
-    font-size: 0.82rem;
-    padding: 7px 7px;
+    font-size: 0.76rem;
+    padding: 7px 5px;
   }
 
   .hero {
@@ -1129,6 +1131,16 @@ button {
   .lede p,
   .abstract-copy p {
     font-size: 1rem;
+  }
+
+  .section,
+  .results-section,
+  .abstract-section {
+    padding-block: 56px;
+  }
+
+  .section-heading {
+    margin-bottom: 22px;
   }
 
   .media-explainer {
@@ -1185,6 +1197,21 @@ button {
     text-wrap: wrap;
   }
 
+  .result-grid,
+  .comparison-grid,
+  .failure-comparison-grid,
+  .overlay-rollout-showcase,
+  .overlay-video-grid {
+    gap: 14px;
+  }
+
+  .figure-panel figcaption,
+  .overlay-feature figcaption,
+  .overlay-card figcaption {
+    font-size: 0.91rem;
+    padding: 13px 16px 15px;
+  }
+
   .comparison-label {
     top: 8px;
     left: 8px;
@@ -1205,7 +1232,7 @@ button {
   }
 
   .scroll-figure img {
-    width: 760px;
+    width: min(620px, max(540px, 150vw));
   }
 }
 
